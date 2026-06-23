@@ -15,4 +15,10 @@ public class UserController {
         System.out.println("User is registed");
         return service.register(user);
     }
+    @PostMapping("/login")
+    private String login(@RequestBody User user){
+        System.out.println("Login succed");
+        return service.login(user);
+    }
+
 }
