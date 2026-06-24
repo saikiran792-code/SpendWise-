@@ -1,13 +1,10 @@
-package com.SpendWise.project.service;
+package com.SpendWise.project.model;
 
-import com.SpendWise.project.model.User;
-import com.SpendWise.project.repo.UserRepo;
 import org.jspecify.annotations.Nullable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
+
 
 import java.util.Collection;
 import java.util.Collections;

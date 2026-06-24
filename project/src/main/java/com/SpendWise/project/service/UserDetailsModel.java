@@ -1,6 +1,7 @@
 package com.SpendWise.project.service;
 
 import com.SpendWise.project.model.User;
+import com.SpendWise.project.model.UserPrincipal;
 import com.SpendWise.project.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
