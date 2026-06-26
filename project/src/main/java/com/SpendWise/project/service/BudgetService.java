@@ -18,15 +18,15 @@ public class BudgetService {
 
 
     public List<Budget> getbudget() {
-      return  repo.findAll();
+        return repo.findAll();
     }
 
 
     public Budget uploadbudget(Budget budget) {
-    return  repo.save(budget);
+        return repo.save(budget);
     }
 
-    public Budget updatebudget(int budgetid,Budget budget) {
+    public Budget updatebudget(int budgetid, Budget budget) {
         if (repo.existsById(budgetid)) {
             budget.setBudgetid(budgetid);
             return repo.save(budget);
@@ -35,20 +35,33 @@ public class BudgetService {
     }
 
     public String getBudgetStatus(int budgetid) {
-        Budget budget=repo.findById(budgetid)
+        Budget budget = repo.findById(budgetid)
                 .orElse(null);
-        if (budget==null){
+        if (budget == null) {
             return "Budget not found";
         }
-        long totalexpense=0;
-        List<Expense> expenses=erepo.findAll();
-        for(Expense expense:expenses){
-            totalexpense+=expense.getAmmount();
+        long totalexpense = 0;
+        List<Expense> expenses = erepo.findAll();
+        for (Expense expense : expenses) {
+            totalexpense += expense.getAmmount();
         }
-        long remaining=budget.getAmmount()-totalexpense;
+        long budgetammount = budget.getAmmount();
+        long remaining = budget.getAmmount() - totalexpense;
+        long percentageofspend = ((totalexpense * 100) / budgetammount);
+        String status;
 
-        return "Budget "+budget.getAmmount()+
-                " Spend "+totalexpense+
-                " Remaining "+remaining;
+        if (percentageofspend >= 100) {
+            status = "Budget Exceeded ❌";
+        } else if (percentageofspend > 80) {
+            status = "Warning ⚠\uFE0F";
+        } else {
+            status = "Safe ✅";
+        }
+
+        return "Budget " + budgetammount +
+                " \nSpent " + totalexpense +
+                "\n Remaining " + remaining +
+                " \nPercentage " + percentageofspend + "%" +
+                " \nStatus " + status;
     }
 }
