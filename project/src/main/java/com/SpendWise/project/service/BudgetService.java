@@ -62,6 +62,7 @@ public class BudgetService {
                 " \nSpent " + totalexpense +
                 "\n Remaining " + remaining +
                 " \nPercentage " + percentageofspend + "%" +
-                " \nStatus " + status;
+                " \nStatus " +" version 1"+ status;
+
     }
 }
