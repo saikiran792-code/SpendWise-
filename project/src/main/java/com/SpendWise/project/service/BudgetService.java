@@ -1,5 +1,6 @@
 package com.SpendWise.project.service;
 
+import com.SpendWise.project.dto.BudgetStatusDTO;
 import com.SpendWise.project.model.Budget;
 import com.SpendWise.project.model.Expense;
 import com.SpendWise.project.repo.BudgetRepo;
@@ -27,6 +28,8 @@ public class BudgetService {
     }
 
     public Budget updatebudget(int budgetid, Budget budget) {
+
+
         if (repo.existsById(budgetid)) {
             budget.setBudgetid(budgetid);
             return repo.save(budget);
@@ -34,20 +37,24 @@ public class BudgetService {
         return null;
     }
 
-    public String getBudgetStatus(int budgetid) {
+    public BudgetStatusDTO getBudgetStatus(int budgetid) {
+        BudgetStatusDTO dto=new BudgetStatusDTO();
         Budget budget = repo.findById(budgetid)
-                .orElse(null);
+                .orElse( null);
         if (budget == null) {
-            return "Budget not found";
+            return null;
         }
         long totalexpense = 0;
         List<Expense> expenses = erepo.findAll();
         for (Expense expense : expenses) {
-            totalexpense += expense.getAmmount();
+            totalexpense += expense.getAmount();
         }
-        long budgetammount = budget.getAmmount();
-        long remaining = budget.getAmmount() - totalexpense;
-        long percentageofspend = ((totalexpense * 100) / budgetammount);
+        long budgetamount = budget.getAmount();
+        long remaining = budgetamount - totalexpense;
+        long percentageofspend = ((totalexpense * 100) / budgetamount);
+        long exceeded = totalexpense - budgetamount;
+        System.out.println("Budget Amount = " + budgetamount);
+        System.out.println("Total Expense = " + totalexpense);
         String status;
 
         if (percentageofspend >= 100) {
@@ -58,11 +65,12 @@ public class BudgetService {
             status = "Safe ✅";
         }
 
-        return "Budget " + budgetammount +
-                " \nSpent " + totalexpense +
-                "\n Remaining " + remaining +
-                " \nPercentage " + percentageofspend + "%" +
-                " \nStatus " +" version 1"+ status;
+        dto.setBudgetamount(budgetamount);
+        dto.setTotalexpense(totalexpense);
+        dto.setRemaining(remaining);
+        dto.setPercentageofspend(percentageofspend);
+        dto.setStatus(status);
+        return dto;
 
     }
 }

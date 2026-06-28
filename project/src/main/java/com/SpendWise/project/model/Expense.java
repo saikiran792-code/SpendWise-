@@ -15,7 +15,7 @@ public class Expense {
     @Id
     @GeneratedValue
     private  int eid;
-    private int ammount;
+    private int amount;
     private String category;
     private Date date;
     @ManyToOne

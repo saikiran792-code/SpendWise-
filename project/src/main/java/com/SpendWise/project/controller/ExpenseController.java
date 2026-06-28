@@ -22,7 +22,6 @@ public class ExpenseController {
     @DeleteMapping("/delete/{eid}")
     private String deleteExpense(@PathVariable int eid){
        return service.deleteExpense(eid);
-
     }
     @GetMapping("/allexpenses")
     private List<Expense> getexpenses(){
@@ -37,4 +36,5 @@ public class ExpenseController {
             @RequestBody Expense expense ){
         return service.updateExpense(eid,expense);
     }
+
 }

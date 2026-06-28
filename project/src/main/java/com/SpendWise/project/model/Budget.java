@@ -9,7 +9,8 @@ import lombok.Data;
 public class Budget {
     @Id
     private  int budgetid;
-    private  long ammount;
+    private  long amount;
     private String month;
+
 
 }

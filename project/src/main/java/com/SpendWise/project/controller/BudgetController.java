@@ -1,5 +1,6 @@
 package com.SpendWise.project.controller;
 
+import com.SpendWise.project.dto.BudgetStatusDTO;
 import com.SpendWise.project.model.Budget;
 import com.SpendWise.project.service.BudgetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class BudgetController {
         return service.updatebudget(budgetid,budget);
     }
     @GetMapping("/status/{budgetid}")
-    private String getBudgetStatus(@PathVariable int budgetid){
+    private BudgetStatusDTO getBudgetStatus(@PathVariable int budgetid){
         return service.getBudgetStatus(budgetid);
     }
 }
