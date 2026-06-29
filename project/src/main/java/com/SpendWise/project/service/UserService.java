@@ -1,6 +1,8 @@
 package com.SpendWise.project.service;
 
+import com.SpendWise.project.model.Expense;
 import com.SpendWise.project.model.User;
+import com.SpendWise.project.repo.ExpenseRepo;
 import com.SpendWise.project.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Service;
 public class UserService {
     @Autowired
     UserRepo repo;
+    @Autowired
+    ExpenseRepo erepo;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -46,4 +50,12 @@ public class UserService {
         return "Login Failed";
     }
 
+    public Expense addExpense(long userid, Expense expense) {
+
+        User user = repo.findById(userid)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        expense.setUser(user);
+
+        return erepo.save(expense);
+    }
 }

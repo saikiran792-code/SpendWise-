@@ -30,7 +30,7 @@ public class ExpenseService {
     }
 
     public Optional<Expense> getbyid(int eid) {
-        return repo.findById(eid);
+        return Optional.of(repo.findById(eid).get());
     }
 
     public Expense updateExpense(int eid,Expense expense) {
@@ -40,5 +40,8 @@ public class ExpenseService {
         }
 
         return null;
+    }
+    public List<Expense> getExpensesByUser(long userid) {
+        return repo.findByUserUserid( userid);
     }
 }

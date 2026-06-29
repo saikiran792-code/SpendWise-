@@ -28,8 +28,6 @@ public class BudgetService {
     }
 
     public Budget updatebudget(int budgetid, Budget budget) {
-
-
         if (repo.existsById(budgetid)) {
             budget.setBudgetid(budgetid);
             return repo.save(budget);
@@ -53,14 +51,22 @@ public class BudgetService {
         long remaining = budgetamount - totalexpense;
         long percentageofspend = ((totalexpense * 100) / budgetamount);
         long exceeded = totalexpense - budgetamount;
-        System.out.println("Budget Amount = " + budgetamount);
-        System.out.println("Total Expense = " + totalexpense);
-        String status;
 
+        if(totalexpense>budgetamount){
+            remaining=0;
+            exceeded=budgetamount-totalexpense;
+        }else {
+            remaining=budgetamount-totalexpense;
+            exceeded=0;
+        }
+
+
+
+        String status;
         if (percentageofspend >= 100) {
             status = "Budget Exceeded ❌";
         } else if (percentageofspend > 80) {
-            status = "Warning ⚠\uFE0F";
+            status = "Warning ⚠\uFE0E";
         } else {
             status = "Safe ✅";
         }
@@ -70,6 +76,7 @@ public class BudgetService {
         dto.setRemaining(remaining);
         dto.setPercentageofspend(percentageofspend);
         dto.setStatus(status);
+        dto.setExceeded(exceeded);
         return dto;
 
     }

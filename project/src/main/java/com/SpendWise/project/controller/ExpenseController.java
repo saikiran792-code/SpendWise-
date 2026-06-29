@@ -36,5 +36,9 @@ public class ExpenseController {
             @RequestBody Expense expense ){
         return service.updateExpense(eid,expense);
     }
+    @GetMapping("/user/{userid}")
+    public List<Expense> getExpenses(@PathVariable long userid) {
+        return service.getExpensesByUser(userid);
+    }
 
 }

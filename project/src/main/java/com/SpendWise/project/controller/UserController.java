@@ -1,5 +1,6 @@
 package com.SpendWise.project.controller;
 
+import com.SpendWise.project.model.Expense;
 import com.SpendWise.project.model.User;
 import com.SpendWise.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,13 @@ public class UserController {
     private String login(@RequestBody User user){
         System.out.println("Login succed");
         return service.login(user);
+    }
+    @PostMapping("/{userid}/expenses")
+    public Expense addExpense(
+            @PathVariable long userid,
+            @RequestBody Expense expense) {
+
+        return service.addExpense(userid, expense);
     }
 
 }

@@ -8,5 +8,6 @@ public class BudgetStatusDTO {
     private long totalexpense;
     private  long remaining;
     private long percentageofspend;
+    private long exceeded;
     private String status;
 }
