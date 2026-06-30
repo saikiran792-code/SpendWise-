@@ -1,7 +1,9 @@
 package com.SpendWise.project.service;
 
+import com.SpendWise.project.model.Budget;
 import com.SpendWise.project.model.Expense;
 import com.SpendWise.project.model.User;
+import com.SpendWise.project.repo.BudgetRepo;
 import com.SpendWise.project.repo.ExpenseRepo;
 import com.SpendWise.project.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class UserService {
     UserRepo repo;
     @Autowired
     ExpenseRepo erepo;
+    @Autowired
+    BudgetRepo brepo;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -51,11 +55,16 @@ public class UserService {
     }
 
     public Expense addExpense(long userid, Expense expense) {
-
         User user = repo.findById(userid)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         expense.setUser(user);
-
         return erepo.save(expense);
+    }
+
+    public Budget addBudget(long userid, Budget budget) {
+        User user=repo.findById(userid)
+                .orElseThrow(()->new RuntimeException("User not found"));
+        budget.setUser(user);
+        return brepo.save(budget);
     }
 }

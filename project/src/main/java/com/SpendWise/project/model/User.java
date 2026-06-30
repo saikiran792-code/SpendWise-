@@ -29,4 +29,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonManagedReference
     private List<Expense> expenses;
+
+    @OneToOne(mappedBy = "user")
+    @JsonManagedReference
+    private Budget budget;
 }
